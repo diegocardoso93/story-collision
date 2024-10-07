@@ -1,0 +1,137 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #051419;
+  margin: auto;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: white;
+}
+section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 20px;
+}
+article {
+  width: 100%;
+  border: 2px solid #442088;
+  max-width: 800px;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+article p {
+  margin: 8px 4px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.button-top {
+  color: white;
+  border: 1px solid white;
+  background: black;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 3px;
+  width: 140px;
+}
+.selected {
+  color: black;
+  background: white;
+}
+
+.in {
+  background: black;
+  border: 1px solid white;
+  padding: 6px;
+  font-size: 16px;
+  color: white;
+}
+.button-send {
+  color: white;
+  border: 1px solid white;
+  background: black;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 14px;
+}
+.button-collide {
+  color: white;
+  border: 2px solid #690b2a;
+  background: black;
+  cursor: pointer;
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.gcontainer {
+  display: flex; flex-direction: column; align-items: flex-end; width: 300px;
+  margin-bottom: 30px;
+}
+.hide {
+  display: none;
+}
+.nav {
+  width: 100%; display: flex; justify-content: center;
+  margin-top: 20px;
+  user-select: none;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+.top .title {
+  font-weight: bold;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid rgba(255, 255, 255, 0.87);
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader.small {
+  width: 24px;
+  height: 24px;
+}
+.loader.xsmall {
+  border: 3px solid rgba(255, 255, 255, 0.87);
+  width: 16px;
+  height: 16px;
+}
+@keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}

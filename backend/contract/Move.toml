@@ -1,0 +1,17 @@
+[package]
+name = "storycollision"
+version = "1.0.0"
+authors = []
+
+[addresses]
+story_collision_addr = "_"
+
+[dev-addresses]
+story_collision_addr = "0x111"
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-framework"
+
+[dev-dependencies]
