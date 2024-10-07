@@ -13,8 +13,8 @@ Are you ready to cross the destinies?
 ## Components
 
 #### backend
-Move Contract definitions, entry and view methods.  
+Move contract definitions, entry and view methods.  
 Gradio to call Hugging Face `yuntian-deng/ChatGPT4` model.  
 
 #### frontend
-Browser Client Application that integrates `Petra Wallet`.  
+Browser client application that integrates `Petra Wallet`.  
