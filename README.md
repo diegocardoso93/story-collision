@@ -1,12 +1,12 @@
 # Story Collision
 <img src="https://github.com/diegocardoso93/story-collision/blob/main/story_collision.png?raw=true" width="256" height="256">
 
-Let's your AI generated story collides with other users AI generated stories.  
+Let's your AI generated story collides with other users story personages.  
 Are you ready to cross the destinies?
 
 ## How it works
 - **Create your story:** Insert personage name, attributes, likes and dislikes. 
-- **Collide:** Select other user created story to collide.
+- **Collide:** Select other user created personage story to collide.
 - **Have fun reading!** Prepare to be amazed with the enchanting tales created and the crossed paths of the characters.
 - **On chain storage:** All stories are stored on-chain with a reference to user creator account.
 
