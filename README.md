@@ -5,7 +5,7 @@ Let's your AI generated story collides with other users AI generated stories.
 Are you ready to cross the destinies?
 
 ## How it works
-- **Create your story:** insert personage name, attributes, likes and dislikes. 
+- **Create your story:** Insert personage name, attributes, likes and dislikes. 
 - **Collide:** Select other user created story to collide.
 - **Have fun reading!** Prepare to be amazed with the enchanting tales created and the crossed paths of the characters.
 - **On chain storage:** All stories are stored on-chain with a reference to user creator account.
@@ -13,8 +13,8 @@ Are you ready to cross the destinies?
 ## Components
 
 #### backend
-Move Contract definitions, entry and view methods  
-Gradio to call Hugging Face `yuntian-deng/ChatGPT4` model  
+Move Contract definitions, entry and view methods.  
+Gradio to call Hugging Face `yuntian-deng/ChatGPT4` model.  
 
 #### frontend
-Browser Client Application that integrates `Petra Wallet`  
+Browser Client Application that integrates `Petra Wallet`.  
