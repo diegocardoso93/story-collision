@@ -1,54 +1,46 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { nl2br } from './utils';
-import ModalCollide from './Modal';
-import './assets/App.css'
 import { useWallet, WalletName } from '@aptos-labs/wallet-adapter-react';
+import { API_BASE_URL, nl2br, Story, StoryCollision } from './utils';
+import ModalCollide from './Modal';
+import './assets/App.css';
 
 function App() {
   const [currentView, setCurrentView] = useState<string>('new')
   const [newStory, setNewStory] = useState<{input: string, content: string}|null>();
-  const [stories, setStories] = useState<any[]>([]);
-  const [myStories, setMyStories] = useState<any[]>([]);
-  const [collisions, setCollisions] = useState<any[]>([]);
-  const [showModalCollide, setShowModalCollide] = useState<boolean>();
+  const [stories, setStories] = useState<Story[]>([]);
+  const [myStories, setMyStories] = useState<Story[]>([]);
+  const [collisions, setCollisions] = useState<StoryCollision[]>([]);
+  const [selectedModalCollide, setSelectedModalCollide] = useState<Story|null>();
   const [loading, setLoading] = useState<boolean>();
-  const { account, connect, connected, wallet } = useWallet();
+  const { account, connect, connected } = useWallet();
 
   useEffect(() => {
     if (!connected) {
-      async function connectWallet() {
-        await connect("Petra" as WalletName<"Petra">);
-      }
-      connectWallet();
+      connect("Petra" as WalletName<"Petra">);
     }
-    console.log(connected);
-    console.log(wallet);
-    console.log(account);
     setNewStory(null);
-  }, [connected]);
+  }, [connected, currentView]);
 
   function goNew() {
-    setCurrentView('new')
+    setCurrentView('new');
   }
 
   async function goMyStories() {
-    setCurrentView('my')
-    const response = await fetch('http://localhost:3000/story')
+    setCurrentView('my');
+    const response = await fetch(`${API_BASE_URL}/story`)
     const json = await response.json();
-    const tstories = json[0];
+    const tstories = json[0] as Story[];
     tstories.sort((a, b) => b.story_id - a.story_id);
-    console.log(tstories);
-    setMyStories(tstories.filter((s: any) => s.user == account?.address))
-    setStories(tstories)
+    setMyStories(tstories.filter((s) => s.user == account?.address));
+    setStories(tstories);
   }
 
   async function goCollisions() {
-    setCurrentView('collisions')
-    const response = await fetch('http://localhost:3000/collide')
+    setCurrentView('collisions');
+    const response = await fetch(`${API_BASE_URL}/collide`)
     const json = await response.json();
-    const tstories = json[0];
+    const tstories = json[0] as StoryCollision[];
     tstories.sort((a, b) => b.story_id - a.story_id);
-    console.log(tstories);
     setCollisions(tstories);
   }
 
@@ -62,12 +54,12 @@ function App() {
       arrData.push(`${input.id}: ${input.value}`);
     }
 
-    const response = await fetch('http://localhost:3000/story', {
+    const response = await fetch(`${API_BASE_URL}/story`, {
       method: 'post',
       body: JSON.stringify({ user: account?.address, input: arrData.join('; ') }),
       headers: {'Content-Type': 'application/json'}
     });
-    const json = await response.json();
+    const json = await response.json() as Story;
 
     setNewStory({input: json.input, content: json.content});
     setLoading(false);
@@ -134,7 +126,7 @@ function App() {
               <div className="top">
                 <p className="title">{x.input}</p>
                 <div>
-                  <button className="button-collide" onClick={() => setShowModalCollide(x)}>
+                  <button className="button-collide" onClick={() => setSelectedModalCollide(x)}>
                     collide
                   </button>
                 </div>
@@ -158,16 +150,16 @@ function App() {
         </section>
       )}
 
-      {showModalCollide && (
+      {selectedModalCollide && (
         <ModalCollide
-          selected={showModalCollide}
+          selected={selectedModalCollide}
           stories={stories}
           user={account?.address}
-          close={() => setShowModalCollide(false)}
+          close={() => setSelectedModalCollide(null)}
         />
       )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
