@@ -6,11 +6,11 @@ import './assets/App.css';
 
 function App() {
   const [currentView, setCurrentView] = useState<string>('new')
-  const [newStory, setNewStory] = useState<{input: string, content: string}|null>();
+  const [newStory, setNewStory] = useState<{ input: string, content: string } | null>();
   const [stories, setStories] = useState<Story[]>([]);
   const [myStories, setMyStories] = useState<Story[]>([]);
   const [collisions, setCollisions] = useState<StoryCollision[]>([]);
-  const [selectedModalCollide, setSelectedModalCollide] = useState<Story|null>();
+  const [selectedModalCollide, setSelectedModalCollide] = useState<Story | null>();
   const [loading, setLoading] = useState<boolean>();
   const { account, connect, connected } = useWallet();
 
@@ -57,11 +57,11 @@ function App() {
     const response = await fetch(`${API_BASE_URL}/story`, {
       method: 'post',
       body: JSON.stringify({ user: account?.address, input: arrData.join('; ') }),
-      headers: {'Content-Type': 'application/json'}
+      headers: { 'Content-Type': 'application/json' }
     });
     const json = await response.json() as Story;
 
-    setNewStory({input: json.input, content: json.content});
+    setNewStory({ input: json.input, content: json.content });
     setLoading(false);
 
     for (let input of inputs) {
@@ -75,17 +75,17 @@ function App() {
         <button
           className={`button-top ${currentView === 'new' && 'selected'}`}
           onClick={goNew}>
-            new
+          new
         </button>
         <button
           className={`button-top ${currentView === 'my' && 'selected'}`}
           onClick={goMyStories}>
-            my stories
+          my stories
         </button>
         <button
           className={`button-top ${currentView === 'collisions' && 'selected'}`}
           onClick={goCollisions}>
-            collisions
+          collisions
         </button>
       </div>
 
@@ -121,7 +121,7 @@ function App() {
 
       {currentView === 'my' && (
         <section id="my">
-          {myStories.map(x => 
+          {myStories.map(x =>
             <article key={x.story_id}>
               <div className="top">
                 <p className="title">{x.input}</p>
@@ -142,7 +142,7 @@ function App() {
           {collisions.map(x =>
             <article key={x.story_id}>
               <div className="top">
-                <p className="title">{x.input1} <br/> {x.input2}</p>
+                <p className="title">{x.input1} <br /> {x.input2}</p>
               </div>
               <p dangerouslySetInnerHTML={{ __html: nl2br(x.content) }}></p>
             </article>

@@ -6,7 +6,7 @@ import "dotenv/config";
 // Create Express server
 export const app = express();
 const port = process.env.PORT || 3000;
-const contactCreatorAccount = process.env.CONTRACT_CREATOR_ACCOUNT as `0x{string}`;
+const contractCreatorAccount = process.env.CONTRACT_CREATOR_ACCOUNT as `0x{string}`;
 
 // Express configuration
 app.use(express.json());
@@ -22,7 +22,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/story", async (req: Request, res: Response) => {
-  res.send(await listStory(contactCreatorAccount));
+  res.send(await listStory(contractCreatorAccount));
 });
 
 app.post("/story", async (req: Request, res: Response) => {
@@ -31,7 +31,7 @@ app.post("/story", async (req: Request, res: Response) => {
 
 
 app.get("/collide", async (req: Request, res: Response) => {
-  res.send(await listStoryCollision(contactCreatorAccount));
+  res.send(await listStoryCollision(contractCreatorAccount));
 });
 
 app.post("/collide", async (req: Request, res: Response) => {

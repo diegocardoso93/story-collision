@@ -5,8 +5,8 @@ import { WalletProvider } from './WalletProvider.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-     <WalletProvider>
+    <WalletProvider>
       <App />
     </WalletProvider>
   </StrictMode>,
-)
+);

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { API_BASE_URL, Story } from './utils';
 import './assets/Modal.css';
 
-function ModalCollide({selected, stories, user, close}: Props) {
+function ModalCollide({ selected, stories, user, close }: Props) {
   const [otherUsersStories, setOtherUsersStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState<number>();
 
@@ -15,7 +15,7 @@ function ModalCollide({selected, stories, user, close}: Props) {
     await fetch(`${API_BASE_URL}/collide`, {
       method: 'post',
       body: JSON.stringify({ user, input1: selected.input, input2: story.input, story: selected.content, story_id: selected.story_id }),
-      headers: {'Content-Type': 'application/json'}
+      headers: { 'Content-Type': 'application/json' }
     });
     setLoading(0);
     close();
@@ -27,12 +27,12 @@ function ModalCollide({selected, stories, user, close}: Props) {
         <div className="close" onClick={() => close()}>&times;</div>
         {otherUsersStories.map(s =>
           <div key={s.story_id} className="item">
-            <p>{ s.input }</p>
+            <p>{s.input}</p>
             <div>
               <button onClick={() => collide(s)}>
                 {loading == s.story_id && <div className="loader xsmall"></div> || 'collide'}
               </button>
-              </div>
+            </div>
           </div>)}
       </div>
     </div>
@@ -42,7 +42,7 @@ function ModalCollide({selected, stories, user, close}: Props) {
 type Props = {
   selected: Story,
   stories: Story[],
-  user: string|undefined,
+  user: string | undefined,
   close: Function,
 }
 

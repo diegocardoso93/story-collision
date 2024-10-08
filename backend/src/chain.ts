@@ -35,7 +35,7 @@ async function saveStory(user: `0x${string}`, input: string, content: string) {
     typeArguments: [],
   });
   console.log(result);
-  return {input, content};
+  return { input, content };
 }
 
 async function saveStoryCollision(user: `0x${string}`, input1: string, input2: string, content: string, story_id: number) {
@@ -52,7 +52,7 @@ export async function getStory(address: `0x${string}`, index: string) {
     functionArguments: [address, index],
     typeArguments: [],
   });
-  return {input, content};
+  return { input, content };
 }
 
 export async function listStory(address: `0x${string}`) {
