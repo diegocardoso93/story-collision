@@ -8,13 +8,13 @@ Are you ready to cross the destinies?
 - **Create your story:** Insert personage name, attributes, likes and dislikes. 
 - **Collide:** Select other user created personage story to collide.
 - **Have fun reading:** Prepare to be amazed with the enchanting tales created and the crossed paths of the characters.
-- **On chain storage:** All stories are stored on-chain with a reference to user creator account.
 
-## Components
-
-#### backend
-Move contract definitions, entry and view methods.  
-Gradio to call Hugging Face `yuntian-deng/ChatGPT4` model.  
-
-#### frontend
-Browser client application that integrates `Petra Wallet`.  
+### Key Features:
+- **On chain storage:** All stories are securely stored on-chain, linked to the creator's account for authenticity.  
+- **Main Components:**  
+  - **backend**  
+[`Move`](https://aptos.dev/en/build/smart-contracts) smart contract definitions, entry and view methods.  
+[`Thalalabs/Surf`](https://github.com/ThalaLabs/surf) lib to easy interact with Aptos contracts via ABI generated type definitions.  
+Gradio to call Hugging Face [`yuntian-deng/ChatGPT4`](https://huggingface.co/spaces/yuntian-deng/ChatGPT4) LLM model.  
+  - **frontend**  
+Browser client application that integrates [`Petra Wallet`](https://petra.app/).  
