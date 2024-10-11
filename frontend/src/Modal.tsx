@@ -2,19 +2,33 @@ import { useEffect, useState } from 'react';
 import { API_BASE_URL, Story } from './utils';
 import './assets/Modal.css';
 
-function ModalCollide({ selected, stories, user, close }: Props) {
-  const [otherUsersStories, setOtherUsersStories] = useState<Story[]>([]);
+function ModalCollide({ selected, user, close }: Props) {
+  const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState<number>();
 
   useEffect(() => {
-    setOtherUsersStories(stories.filter(s => s.input != selected.input));
+    async function getStoriesToCollide() {
+      const response = await fetch(`${API_BASE_URL}/story`)
+      const json = await response.json();
+      const tstories = json[0] as Story[];
+      tstories.sort((a, b) => b.story_id - a.story_id);
+      setStories(tstories.filter(s => s.input != selected.input));
+    }
+    getStoriesToCollide();
   }, []);
 
   async function collide(story: Story) {
     setLoading(story.story_id);
     await fetch(`${API_BASE_URL}/collide`, {
       method: 'post',
-      body: JSON.stringify({ user, input1: selected.input, input2: story.input, story: selected.content, story_id: selected.story_id }),
+      body: JSON.stringify({
+        user,
+        input1: selected.input,
+        input2: story.input,
+        story: selected.content,
+        story_id1: selected.story_id,
+        story_id2: story.story_id,
+      }),
       headers: { 'Content-Type': 'application/json' }
     });
     setLoading(0);
@@ -25,7 +39,7 @@ function ModalCollide({ selected, stories, user, close }: Props) {
     <div className="modal overlay">
       <div className="content">
         <div className="close" onClick={() => close()}>&times;</div>
-        {otherUsersStories.map(s =>
+        {stories.map(s =>
           <div key={s.story_id} className="item">
             <p>{s.input}</p>
             <div>
@@ -41,7 +55,6 @@ function ModalCollide({ selected, stories, user, close }: Props) {
 
 type Props = {
   selected: Story,
-  stories: Story[],
   user: string | undefined,
   close: Function,
 }

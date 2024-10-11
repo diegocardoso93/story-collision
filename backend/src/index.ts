@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
-import { clearStoryDepot, createStoryDepot, createStory, createStoryCollision, listStory, listStoryCollision } from "./chain";
+import { clearStoryDepot, createStoryDepot, createStory, createStoryCollision, listStory, listStoryCollision, listUserStory } from "./chain";
 import "dotenv/config";
 
 // Create Express server
@@ -22,7 +22,12 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/story", async (req: Request, res: Response) => {
-  res.send(await listStory(contractCreatorAccount));
+  const user = req.query.user as `0x{string}`;
+  const page = +(req.query.page || 1);
+  if (user) {
+    return res.send(await listUserStory(contractCreatorAccount, user));
+  }
+  res.send(await listStory(contractCreatorAccount, page));
 });
 
 app.post("/story", async (req: Request, res: Response) => {
@@ -31,11 +36,13 @@ app.post("/story", async (req: Request, res: Response) => {
 
 
 app.get("/collide", async (req: Request, res: Response) => {
-  res.send(await listStoryCollision(contractCreatorAccount));
+  const user = req.query.user as `0x{string}`;
+  res.send(await listStoryCollision(contractCreatorAccount, user));
 });
 
 app.post("/collide", async (req: Request, res: Response) => {
-  res.send(await createStoryCollision(req.body.user, req.body.input1, req.body.input2, req.body.story, req.body.story_id));
+  const { user, input1, input2, story, story_id1, story_id2 } = req.body;
+  res.send(await createStoryCollision(user, input1, input2, story, story_id1, story_id2));
 });
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {

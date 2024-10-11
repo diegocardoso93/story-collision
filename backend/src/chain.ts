@@ -23,9 +23,9 @@ export async function createStory(user: `0x${string}`, input: string) {
   return await saveStory(user, input, content);
 }
 
-export async function createStoryCollision(user: `0x${string}`, input1: string, input2: string, story: string, story_id: number) {
+export async function createStoryCollision(user: `0x${string}`, input1: string, input2: string, story: string, story_id1: number, story_id2: number) {
   const content = await generateStoryCollision(input1, input2, story);
-  return await saveStoryCollision(user, input1, input2, content, story_id);
+  return await saveStoryCollision(user, input1, input2, content, story_id1, story_id2);
 }
 
 async function saveStory(user: `0x${string}`, input: string, content: string) {
@@ -38,10 +38,10 @@ async function saveStory(user: `0x${string}`, input: string, content: string) {
   return { input, content };
 }
 
-async function saveStoryCollision(user: `0x${string}`, input1: string, input2: string, content: string, story_id: number) {
+async function saveStoryCollision(user: `0x${string}`, input1: string, input2: string, content: string, story_id1: number, story_id2: number) {
   const result = await surfClient.entry.create_story_collision({
     account: Account.fromPrivateKey({ privateKey: new Ed25519PrivateKey(appCreatorPrivateKey) }),
-    functionArguments: [user, input1, input2, content, story_id],
+    functionArguments: [user, input1, input2, content, story_id1, story_id2],
     typeArguments: [],
   });
   console.log(result);
@@ -55,17 +55,26 @@ export async function getStory(address: `0x${string}`, index: string) {
   return { input, content };
 }
 
-export async function listStory(address: `0x${string}`) {
+export async function listStory(address: `0x${string}`, page: number) {
   const storyList = await surfClient.view.list_story({
-    functionArguments: [address],
+    functionArguments: [address, page],
     typeArguments: [],
   });
   return storyList;
 }
 
-export async function listStoryCollision(address: `0x${string}`) {
-  const storyList = await surfClient.view.list_story_collision({
-    functionArguments: [address],
+export async function listUserStory(address: `0x${string}`, user: `0x${string}`) {
+  const storyList = await surfClient.view.list_user_story({
+    functionArguments: [address, user],
+    typeArguments: [],
+  });
+  return storyList;
+}
+
+
+export async function listStoryCollision(address: `0x${string}`, user: `0x${string}`) {
+  const storyList = await surfClient.view.list_user_story_collision({
+    functionArguments: [address, user],
     typeArguments: [],
   });
   return storyList;

@@ -11,7 +11,8 @@ export type Story = {
 };
 
 export type StoryCollision = {
-  story_id: number,
+  story_id1: number,
+  story_id2: number,
   user: string,
   input1: string,
   input2: string,

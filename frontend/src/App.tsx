@@ -7,7 +7,6 @@ import './assets/App.css';
 function App() {
   const [currentView, setCurrentView] = useState<string>('new')
   const [newStory, setNewStory] = useState<{ input: string, content: string } | null>();
-  const [stories, setStories] = useState<Story[]>([]);
   const [myStories, setMyStories] = useState<Story[]>([]);
   const [collisions, setCollisions] = useState<StoryCollision[]>([]);
   const [selectedModalCollide, setSelectedModalCollide] = useState<Story | null>();
@@ -27,20 +26,19 @@ function App() {
 
   async function goMyStories() {
     setCurrentView('my');
-    const response = await fetch(`${API_BASE_URL}/story`)
+    const response = await fetch(`${API_BASE_URL}/story?user=${account?.address}`)
     const json = await response.json();
     const tstories = json[0] as Story[];
     tstories.sort((a, b) => b.story_id - a.story_id);
-    setMyStories(tstories.filter((s) => s.user == account?.address));
-    setStories(tstories);
+    setMyStories(tstories);
   }
 
   async function goCollisions() {
     setCurrentView('collisions');
-    const response = await fetch(`${API_BASE_URL}/collide`)
+    const response = await fetch(`${API_BASE_URL}/collide?user=${account?.address}`)
     const json = await response.json();
     const tstories = json[0] as StoryCollision[];
-    tstories.sort((a, b) => b.story_id - a.story_id);
+    tstories.sort((a, b) => b.story_id1 - a.story_id1);
     setCollisions(tstories);
   }
 
@@ -140,7 +138,7 @@ function App() {
       {currentView === 'collisions' && (
         <section id="collisions">
           {collisions.map(x =>
-            <article key={x.story_id}>
+            <article key={x.story_id1}>
               <div className="top">
                 <p className="title">{x.input1} <br /> {x.input2}</p>
               </div>
@@ -153,7 +151,6 @@ function App() {
       {selectedModalCollide && (
         <ModalCollide
           selected={selectedModalCollide}
-          stories={stories}
           user={account?.address}
           close={() => setSelectedModalCollide(null)}
         />
