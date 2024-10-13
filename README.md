@@ -8,10 +8,9 @@ Are you ready to cross the destinies?
 - **Create a story:** Define your character’s name, attributes, likes, and dislikes.
 - **Collide:** Choose a character from another user to create a unique narrative crossover.
 - **Enjoy Reading:** Discover the intriguing tales that emerge from these character intersections.
+- **On chain storage:** All stories are stored on-chain, linked to the creator's account for authenticity.  
 
-### Key Features:
-- **On chain storage:** All stories are securely stored on-chain, linked to the creator's account for authenticity.  
-- **Main Components:**  
+## Main Components  
   - **backend**  
 [`Move`](https://aptos.dev/en/build/smart-contracts) smart contract definitions, entry and view methods.  
 [`Thalalabs/Surf`](https://github.com/ThalaLabs/surf) lib to easy interact with Aptos contracts via ABI generated type definitions.  
